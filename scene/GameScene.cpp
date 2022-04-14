@@ -6,7 +6,10 @@ using namespace DirectX;
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() { delete sprite_; }
+GameScene::~GameScene() {
+	delete sprite_;
+	delete model_;
+}
 
 void GameScene::Initialize() {
 
@@ -16,6 +19,7 @@ void GameScene::Initialize() {
 	debugText_ = DebugText::GetInstance();
 	textureHandle_ = TextureManager::Load("01-02/mario.jpg");
 	sprite_ = Sprite::Create(textureHandle_, {100, 50});
+	model_ = Model::Create();//3Dモデル生成
 }
 
 void GameScene::Update() {
