@@ -16,11 +16,13 @@ void GameScene::Initialize() {
 	debugText_ = DebugText::GetInstance();
 	textureHandle_ = TextureManager::Load("02-01/mario.jpg");
 	model_ = Model::Create();
-	//X,Y,Z方向のスケーリングを設定
+	// X,Y,Z方向のスケーリングを設定
 	worldTransform_.scale_ = {5.0f, 5.0f, 5.0f};
-	//X,Y,Z軸周りの回転角を設定
+	// X,Y,Z軸周りの回転角を設定
 	worldTransform_.rotation_ = {XM_PI / 4.0f, XMConvertToRadians(45.0f), 0.0f};
 	//↑XM_PIはπのこと、度数法を使うならXMConvertToRadiansを使う
+	// X,Y,Z軸周りの平行移動を指定
+	worldTransform_.translation_ = {10.0f, 10.0f, 10.0f};
 	//ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
 	//ビュープロジェクションの初期化
@@ -55,7 +57,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	//3Dモデル描画
+	// 3Dモデル描画
 	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
