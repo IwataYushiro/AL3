@@ -18,12 +18,15 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
 	textureHandle_ = TextureManager::Load("01-02/mario.jpg");
-	sprite_ = Sprite::Create(textureHandle_, {100, 50});
+	sprite_ = Sprite::Create(textureHandle_, {100, 50});//スプライト生成
 	model_ = Model::Create();//3Dモデル生成
 	//ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
+	//サウンドデータ読み込み
+	soundDataHandle_ = audio_->LoadWave("01-02/se_sad03.wav");
+	
 }
 
 void GameScene::Update() {
