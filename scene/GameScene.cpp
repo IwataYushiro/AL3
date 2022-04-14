@@ -14,6 +14,7 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
+	textureHandle_ = TextureManager::Load("01-02/mario.jpg");
 }
 
 void GameScene::Update() {}
