@@ -16,6 +16,10 @@ void GameScene::Initialize() {
 	debugText_ = DebugText::GetInstance();
 	textureHandle_ = TextureManager::Load("02-01/mario.jpg");
 	model_ = Model::Create();
+	//ワールドトランスフォームの初期化
+	worldTransform_.Initialize();
+	//ビュープロジェクションの初期化
+	viewProjection_.Initialize();
 }
 
 void GameScene::Update() {}
