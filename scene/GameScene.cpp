@@ -16,6 +16,8 @@ void GameScene::Initialize() {
 	debugText_ = DebugText::GetInstance();
 	textureHandle_ = TextureManager::Load("02-01/mario.jpg");
 	model_ = Model::Create();
+	//X,Y,Z方向のスケーリングを設定
+	worldTransform_.scale_ = {5.0f, 5.0f, 5.0f};
 	//ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
 	//ビュープロジェクションの初期化
