@@ -18,8 +18,8 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
 	textureHandle_ = TextureManager::Load("01-02/mario.jpg");
-	sprite_ = Sprite::Create(textureHandle_, {100, 50});//スプライト生成
-	model_ = Model::Create();//3Dモデル生成
+	sprite_ = Sprite::Create(textureHandle_, {100, 50}); //スプライト生成
+	model_ = Model::Create();                            // 3Dモデル生成
 	//ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
 	//ビュープロジェクションの初期化
@@ -73,7 +73,6 @@ void GameScene::Draw() {
 	dxCommon_->ClearDepthBuffer();
 #pragma endregion
 
-
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
@@ -81,9 +80,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	//3Dモデル描画
+	// 3Dモデル描画
 	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
-	
+
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
@@ -98,7 +97,6 @@ void GameScene::Draw() {
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
-	//
 	// スプライト描画後処理
 	Sprite::PostDraw();
 

@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "Audio.h"
-#include "DirectXCommon.h"
 #include "DebugText.h"
+#include "DirectXCommon.h"
 #include "Input.h"
 #include "Model.h"
 #include "SafeDelete.h"
@@ -54,7 +54,7 @@ class GameScene {
 	//スプライト
 	Sprite* sprite_ = nullptr;
 
-	//3Dモデル
+	// 3Dモデル
 	Model* model_ = nullptr;
 
 	//ワールドトランスフォーム
