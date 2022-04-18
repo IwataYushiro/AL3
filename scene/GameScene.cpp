@@ -14,7 +14,7 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
-	textureHandle_ = TextureManager::Load("02-01/mario.jpg");
+	textureHandle_ = TextureManager::Load("02-02/mario.jpg");
 	model_ = Model::Create();
 	// X,Y,Z方向のスケーリングを設定
 	worldTransform_.scale_ = {5.0f, 5.0f, 5.0f};
