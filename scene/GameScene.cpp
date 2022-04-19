@@ -1,6 +1,7 @@
 ﻿#include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include <random>
 
 using namespace DirectX;
 
@@ -16,13 +17,23 @@ void GameScene::Initialize() {
 	debugText_ = DebugText::GetInstance();
 	textureHandle_ = TextureManager::Load("02-02/mario.jpg");
 	model_ = Model::Create();
+
+	// 乱数シード生成器
+	std::random_device seed_gen;
+	// メルセンヌ・ツイスター
+	std::mt19937_64 engine(seed_gen());
+	// 乱数範囲(回転角用)
+	std::uniform_real_distribution<float> rotDist(0.0f, XM_2PI);
+	// 乱数範囲(座標用)
+	std::uniform_real_distribution<float> posDist(-10.0f, 10.0f);
+
 	// X,Y,Z方向のスケーリングを設定
 	worldTransform_.scale_ = {5.0f, 5.0f, 5.0f};
 	// X,Y,Z軸周りの回転角を設定
 	worldTransform_.rotation_ = {XM_PI / 4.0f, XMConvertToRadians(45.0f), 0.0f};
 	//↑XM_PIはπのこと、度数法を使うならXMConvertToRadiansを使う
 	// X,Y,Z軸周りの平行移動を指定
-	worldTransform_.translation_ = {10.0f, 10.0f, 10.0f};
+	worldTransform_.translation_ = {0.0f, 10.0f, 0.0f};
 	//ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
 	//ビュープロジェクションの初期化
