@@ -48,6 +48,9 @@ void GameScene::Initialize() {
 	//カメラ注視点座標を設定
 	viewProjection_.target = {10, 0, 0};
 
+	//カメラ上方向ベクトルを設定(右上45度指定)
+	viewProjection_.up = {cosf(XM_PI / 4.0f), sinf(XM_PI / 4.0f), 0.0f};
+	
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 }
