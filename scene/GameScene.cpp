@@ -86,8 +86,10 @@ void GameScene::Update() {
 	const float kEyeSpeed = 0.2f;
 	//注視点の移動の速さ
 	const float kTargetSpeed = 0.2f;
+	//上方向の回転速さ(ラジアン/frame)
+	const float kUpRotSpeed = 0.05f;
 
-//視点移動処理
+	//視点移動処理
 	//押した方向で移動ベクトルの変更
 	if (input_->PushKey(DIK_W)) {
 		eyeMove = {0, 0, kEyeSpeed};
@@ -101,13 +103,6 @@ void GameScene::Update() {
 	viewProjection_.eye.y += eyeMove.y;
 	viewProjection_.eye.z += eyeMove.z;
 	
-	//行列の再計算
-	viewProjection_.UpdateMatrix();
-	//デバックテキスト
-	debugText_->SetPos(50, 50);
-	debugText_->Printf(
-	  "eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
-
 	//注視点移動処理
 	//押した方向で移動ベクトルの変更
 	if (input_->PushKey(DIK_LEFT)) {
@@ -120,13 +115,32 @@ void GameScene::Update() {
 	viewProjection_.target.y += targetMove.y;
 	viewProjection_.target.z += targetMove.z;
 
+	//上方向回転処理
+	if (input_->PushKey(DIK_SPACE)) {
+		viewAngle += kUpRotSpeed;
+		//2πを超えたら0に戻す
+		viewAngle = fmodf(viewAngle, XM_2PI);
+	}
+
+	//上方向ベクトルを計算
+	viewProjection_.up = {cosf(viewAngle), sinf(viewAngle), 0.0f};
+
 	//行列の再計算
 	viewProjection_.UpdateMatrix();
+	
 	//デバックテキスト
+	debugText_->SetPos(50, 50);
+	debugText_->Printf(
+	  "eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
+
 	debugText_->SetPos(50, 70);
 	debugText_->Printf(
 	  "target:(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y,
 	  viewProjection_.target.z);
+
+	debugText_->SetPos(50, 90);
+	debugText_->Printf(
+	  "up:(%f,%f,%f)", viewProjection_.up.x, viewProjection_.up.y, viewProjection_.up.z);
 }
 void GameScene::Draw() {
 
