@@ -61,11 +61,11 @@ void GameScene::Initialize() {
 		worldTransform_[PartId::ArmL].Initialize();
 		//右腕
 		worldTransform_[PartId::ArmR].translation_ = {4.5f, 0, 0};
-		worldTransform_[PartId::ArmR].parent_ = &worldTransform_[PartId::Spine];
+		worldTransform_[PartId::ArmR].parent_ = &worldTransform_[PartId::Chest];
 		worldTransform_[PartId::ArmR].Initialize();
 		//下半身
 		//尻
-		worldTransform_[PartId::Hip].translation_ = {0, -4.5, 0};
+		worldTransform_[PartId::Hip].translation_ = {0, -4.5f, 0};
 		worldTransform_[PartId::Hip].parent_ = &worldTransform_[PartId::Spine];
 		worldTransform_[PartId::Hip].Initialize();
 		//左足
@@ -119,7 +119,11 @@ void GameScene::Update() {
 	const float kUpRotSpeed = 0.05f;
 	//キャラクターの移動の速さ
 	const float kCharacterSpeed = 0.2f;
-
+	//上半身の回転の速さ
+	const float kChestRotSpeed = 0.05f;
+	//下半身の回転の速さ
+	
+	//キャラクターの移動処理
 	//押した方向で移動ベクトルの変更
 	if (input_->PushKey(DIK_LEFT)) {
 		characterMove = {-kCharacterSpeed, 0, 0};
@@ -129,6 +133,14 @@ void GameScene::Update() {
 	worldTransform_[PartId::Root].translation_.x += characterMove.x;
 	worldTransform_[PartId::Root].translation_.y += characterMove.y;
 	worldTransform_[PartId::Root].translation_.z += characterMove.z;
+
+	if (input_->PushKey(DIK_U)) {
+		worldTransform_[PartId::Chest].rotation_.y -= kChestRotSpeed;
+	}
+	else if (input_->PushKey(DIK_I)) {
+		worldTransform_[PartId::Chest].rotation_.y += kChestRotSpeed;
+	}
+
 	/*
 	//視点移動処理
 	//押した方向で移動ベクトルの変更
@@ -243,8 +255,8 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	// 3Dモデル描画
-	model_->Draw(worldTransform_[PartId::Root], viewProjection_, textureHandle_);
-	model_->Draw(worldTransform_[PartId::Spine], viewProjection_, textureHandle_);
+	//model_->Draw(worldTransform_[PartId::Root], viewProjection_, textureHandle_);
+	//model_->Draw(worldTransform_[PartId::Spine], viewProjection_, textureHandle_);
 	model_->Draw(worldTransform_[PartId::Chest], viewProjection_, textureHandle_);
 	model_->Draw(worldTransform_[PartId::Head], viewProjection_, textureHandle_);
 	model_->Draw(worldTransform_[PartId::ArmL], viewProjection_, textureHandle_);
