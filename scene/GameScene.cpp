@@ -133,6 +133,13 @@ void GameScene::Update() {
 		viewProjection_.fovAngleY -= 0.01f;
 		viewProjection_.fovAngleY = max(viewProjection_.fovAngleY, 0.01f);
 	}
+	//クリップ距離変更処理
+	//上下キーでニアクリップ距離を増減
+	if (input_->PushKey(DIK_UP)) {
+		viewProjection_.nearZ += 0.1f;
+	} else if (input_->PushKey(DIK_DOWN)) {
+		viewProjection_.nearZ -= 0.1f;
+	}
 	//行列の再計算
 	viewProjection_.UpdateMatrix();
 	
@@ -152,6 +159,9 @@ void GameScene::Update() {
 
 	debugText_->SetPos(50, 110);
 	debugText_->Printf("fovAngleY(Degree):%f", XMConvertToDegrees(viewProjection_.fovAngleY));
+
+debugText_->SetPos(50, 130);
+	debugText_->Printf("nearZ:%f", viewProjection_.nearZ);
 }
 void GameScene::Draw() {
 
