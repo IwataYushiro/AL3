@@ -15,7 +15,7 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
-	textureHandle_ = TextureManager::Load("02-02/mario.jpg");
+	textureHandle_ = TextureManager::Load("02-03/mario.jpg");
 	model_ = Model::Create();
 
 	// 乱数シード生成器
@@ -28,29 +28,29 @@ void GameScene::Initialize() {
 	std::uniform_real_distribution<float> posDist(-10.0f, 10.0f);
 
 	for (size_t i = 0; i < _countof(worldTransform_); i++) {
-		
+
 		// X,Y,Z方向のスケーリングを設定
 		worldTransform_[i].scale_ = {1.0f, 1.0f, 1.0f};
-		
+
 		// X,Y,Z軸周りの回転角を設定
 		worldTransform_[i].rotation_ = {rotDist(engine), rotDist(engine), rotDist(engine)};
 		//↑XM_PIはπのこと、度数法を使うならXMConvertToRadiansを使う
-		
+
 		// X,Y,Z軸周りの平行移動を指定
 		worldTransform_[i].translation_ = {posDist(engine), posDist(engine), posDist(engine)};
-		
+
 		//ワールドトランスフォームの初期化
 		worldTransform_[i].Initialize();
 	}
 	//カメラ視点座標を設定
 	viewProjection_.eye = {0, 0, -50};
-	
+
 	//カメラ注視点座標を設定
 	viewProjection_.target = {10, 0, 0};
 
 	//カメラ上方向ベクトルを設定(右上45度指定)
 	viewProjection_.up = {cosf(XM_PI / 4.0f), sinf(XM_PI / 4.0f), 0.0f};
-	
+
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 }
@@ -59,22 +59,22 @@ void GameScene::Update() {
 	//デバックテキストの追加
 
 	//// 平行移動 translation
-	//debugText_->SetPos(50, 50);
-	//debugText_->Printf(
-	//  "translation(%f,%f.%f)", worldTransform_.translation_.x, worldTransform_.translation_.y,
-	//  worldTransform_.translation_.z);
+	// debugText_->SetPos(50, 50);
+	// debugText_->Printf(
+	//   "translation(%f,%f.%f)", worldTransform_.translation_.x, worldTransform_.translation_.y,
+	//   worldTransform_.translation_.z);
 
 	//// 回転角 rotation
-	//debugText_->SetPos(50, 70);
-	//debugText_->Printf(
-	//  "rotation(%f,%f,%f)", worldTransform_.rotation_.x, worldTransform_.rotation_.y,
-	//  worldTransform_.rotation_.z);
+	// debugText_->SetPos(50, 70);
+	// debugText_->Printf(
+	//   "rotation(%f,%f,%f)", worldTransform_.rotation_.x, worldTransform_.rotation_.y,
+	//   worldTransform_.rotation_.z);
 
 	//// スケール scale
-	//debugText_->SetPos(50, 90);
-	//debugText_->Printf(
-	//  "scale:(%f,%f,%f)", worldTransform_.scale_.x, worldTransform_.scale_.y,
-	//  worldTransform_.scale_.z);
+	// debugText_->SetPos(50, 90);
+	// debugText_->Printf(
+	//   "scale:(%f,%f,%f)", worldTransform_.scale_.x, worldTransform_.scale_.y,
+	//   worldTransform_.scale_.z);
 
 	//変数宣言
 	//視点の移動ベクトル
@@ -93,8 +93,7 @@ void GameScene::Update() {
 	//押した方向で移動ベクトルの変更
 	if (input_->PushKey(DIK_W)) {
 		eyeMove = {0, 0, kEyeSpeed};
-	}
-	else if (input_->PushKey(DIK_S)) {
+	} else if (input_->PushKey(DIK_S)) {
 		eyeMove = {0, 0, -kEyeSpeed};
 	}
 
@@ -102,7 +101,7 @@ void GameScene::Update() {
 	viewProjection_.eye.x += eyeMove.x;
 	viewProjection_.eye.y += eyeMove.y;
 	viewProjection_.eye.z += eyeMove.z;
-	
+
 	//注視点移動処理
 	//押した方向で移動ベクトルの変更
 	if (input_->PushKey(DIK_LEFT)) {
@@ -118,7 +117,7 @@ void GameScene::Update() {
 	//上方向回転処理
 	if (input_->PushKey(DIK_SPACE)) {
 		viewAngle += kUpRotSpeed;
-		//2πを超えたら0に戻す
+		// 2πを超えたら0に戻す
 		viewAngle = fmodf(viewAngle, XM_2PI);
 	}
 
@@ -127,7 +126,7 @@ void GameScene::Update() {
 
 	//行列の再計算
 	viewProjection_.UpdateMatrix();
-	
+
 	//デバックテキスト
 	debugText_->SetPos(50, 50);
 	debugText_->Printf(
