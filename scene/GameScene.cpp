@@ -33,7 +33,7 @@ void GameScene::Initialize() {
 		worldTransform_[i].scale_ = {1.0f, 1.0f, 1.0f};
 
 		// X,Y,Z軸周りの回転角を設定
-		worldTransform_[i].rotation_ = {rotDist(engine), rotDist(engine), rotDist(engine)};
+		//worldTransform_[i].rotation_ = {rotDist(engine), rotDist(engine), rotDist(engine)};
 		//↑XM_PIはπのこと、度数法を使うならXMConvertToRadiansを使う
 
 		// X,Y,Z軸周りの平行移動を指定
@@ -207,9 +207,8 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	// 3Dモデル描画
-	for (size_t i = 0; i < _countof(worldTransform_); i++) {
-		model_->Draw(worldTransform_[i], viewProjection_, textureHandle_);
-	}
+	model_->Draw(worldTransform_[0], viewProjection_, textureHandle_);
+	model_->Draw(worldTransform_[1], viewProjection_, textureHandle_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
