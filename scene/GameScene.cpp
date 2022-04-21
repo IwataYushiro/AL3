@@ -42,7 +42,8 @@ void GameScene::Initialize() {
 		//ワールドトランスフォームの初期化
 		worldTransform_[i].Initialize();
 	}
-	
+	//カメラ垂直方向視野角を設定
+	viewProjection_.fovAngleY = XMConvertToRadians(10.0f);
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 }
