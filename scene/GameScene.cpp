@@ -122,6 +122,7 @@ void GameScene::Update() {
 	//上半身の回転の速さ
 	const float kChestRotSpeed = 0.05f;
 	//下半身の回転の速さ
+	const float kHipRotSpeed = 0.05f;
 	
 	//キャラクターの移動処理
 	//押した方向で移動ベクトルの変更
@@ -130,6 +131,7 @@ void GameScene::Update() {
 	} else if (input_->PushKey(DIK_RIGHT)) {
 		characterMove = {kCharacterSpeed, 0, 0};
 	}
+
 	worldTransform_[PartId::Root].translation_.x += characterMove.x;
 	worldTransform_[PartId::Root].translation_.y += characterMove.y;
 	worldTransform_[PartId::Root].translation_.z += characterMove.z;
@@ -139,6 +141,11 @@ void GameScene::Update() {
 	}
 	else if (input_->PushKey(DIK_I)) {
 		worldTransform_[PartId::Chest].rotation_.y += kChestRotSpeed;
+	}
+	if (input_->PushKey(DIK_J)) {
+		worldTransform_[PartId::Hip].rotation_.y -= kHipRotSpeed;
+	} else if (input_->PushKey(DIK_K)) {
+		worldTransform_[PartId::Hip].rotation_.y += kHipRotSpeed;
 	}
 
 	/*
