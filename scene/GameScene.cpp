@@ -15,7 +15,7 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
-	textureHandle_ = TextureManager::Load("02-03/mario.jpg");
+	textureHandle_ = TextureManager::Load("02-04/mario.jpg");
 	model_ = Model::Create();
 	
 	// 乱数シード生成器
