@@ -42,15 +42,7 @@ void GameScene::Initialize() {
 		//ワールドトランスフォームの初期化
 		worldTransform_[i].Initialize();
 	}
-	//カメラ視点座標を設定
-	viewProjection_.eye = {0, 0, -50};
-
-	//カメラ注視点座標を設定
-	viewProjection_.target = {10, 0, 0};
-
-	//カメラ上方向ベクトルを設定(右上45度指定)
-	viewProjection_.up = {cosf(XM_PI / 4.0f), sinf(XM_PI / 4.0f), 0.0f};
-
+	
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 }
@@ -88,7 +80,7 @@ void GameScene::Update() {
 	const float kTargetSpeed = 0.2f;
 	//上方向の回転速さ(ラジアン/frame)
 	const float kUpRotSpeed = 0.05f;
-
+/*
 	//視点移動処理
 	//押した方向で移動ベクトルの変更
 	if (input_->PushKey(DIK_W)) {
@@ -123,10 +115,10 @@ void GameScene::Update() {
 
 	//上方向ベクトルを計算
 	viewProjection_.up = {cosf(viewAngle), sinf(viewAngle), 0.0f};
-
+*/
 	//行列の再計算
 	viewProjection_.UpdateMatrix();
-
+	
 	//デバックテキスト
 	debugText_->SetPos(50, 50);
 	debugText_->Printf(
