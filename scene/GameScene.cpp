@@ -40,7 +40,12 @@ void GameScene::Initialize() {
 		worldTransform_[i].translation_ = {posDist(engine), posDist(engine), posDist(engine)};
 
 		//ワールドトランスフォームの初期化
-		worldTransform_[i].Initialize();
+		//親(0番)
+		worldTransform_[0].Initialize();
+		//子(1番)
+		worldTransform_[1].translation_ = {0, 4.5f, 0};		//ローカル座標
+		worldTransform_[1].parent_ = &worldTransform_[0];	//1番の親は0番
+		worldTransform_[1].Initialize();
 	}
 	//カメラ垂直方向視野角を設定
 	viewProjection_.fovAngleY = XMConvertToRadians(45.0f);
