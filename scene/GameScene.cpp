@@ -97,7 +97,12 @@ void GameScene::Update() {
 	//キャラクターの移動の速さ
 	const float kCharacterSpeed = 0.2f;
 
-	
+	//押した方向で移動ベクトルの変更
+	if (input_->PushKey(DIK_LEFT)) {
+		targetMove = {-kCharacterSpeed, 0, 0};
+	} else if (input_->PushKey(DIK_RIGHT)) {
+		targetMove = {kTargetSpeed, 0, 0};
+	}
 	
 	/*
 	//視点移動処理
