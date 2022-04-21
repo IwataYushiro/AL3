@@ -47,14 +47,7 @@ void GameScene::Initialize() {
 		worldTransform_[1].parent_ = &worldTransform_[0];	//1番の親は0番
 		worldTransform_[1].Initialize();
 	}
-	//カメラ垂直方向視野角を設定
-	viewProjection_.fovAngleY = XMConvertToRadians(45.0f);
-	//アスペクト比を設定
-	viewProjection_.aspectRatio = 1.5f;
-	//ニアクリップ距離を設定
-	viewProjection_.nearZ = 52.0f;
-	//ファークリップ距離を設定
-	viewProjection_.farZ = 53.0f;
+	
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 }
@@ -99,11 +92,13 @@ void GameScene::Update() {
 
 	//押した方向で移動ベクトルの変更
 	if (input_->PushKey(DIK_LEFT)) {
-		targetMove = {-kCharacterSpeed, 0, 0};
+		characterMove = {-kCharacterSpeed, 0, 0};
 	} else if (input_->PushKey(DIK_RIGHT)) {
-		targetMove = {kTargetSpeed, 0, 0};
+		characterMove = {kCharacterSpeed, 0, 0};
 	}
-	
+	worldTransform_[PartId::Root].translation_.x += characterMove.x;
+	worldTransform_[PartId::Root].translation_.y += characterMove.y;
+	worldTransform_[PartId::Root].translation_.z += characterMove.z;
 	/*
 	//視点移動処理
 	//押した方向で移動ベクトルの変更
@@ -139,7 +134,7 @@ void GameScene::Update() {
 
 	//上方向ベクトルを計算
 	viewProjection_.up = {cosf(viewAngle), sinf(viewAngle), 0.0f};
-*/
+
 	//FoV変更処理
 	//上キーで視野角が広がる
 	if (input_->PushKey(DIK_W)) {
@@ -157,8 +152,11 @@ void GameScene::Update() {
 	} else if (input_->PushKey(DIK_DOWN)) {
 		viewProjection_.nearZ -= 0.1f;
 	}
+	*/
 	//行列の再計算
-	viewProjection_.UpdateMatrix();
+	worldTransform_[0].UpdateMatrix();
+	worldTransform_[1].UpdateMatrix();
+
 
 	//デバックテキスト
 	debugText_->SetPos(50, 50);
@@ -177,8 +175,10 @@ void GameScene::Update() {
 	debugText_->SetPos(50, 110);
 	debugText_->Printf("fovAngleY(Degree):%f", XMConvertToDegrees(viewProjection_.fovAngleY));
 
-debugText_->SetPos(50, 130);
+	debugText_->SetPos(50, 130);
 	debugText_->Printf("nearZ:%f", viewProjection_.nearZ);
+
+	debugText_->SetPos(50, 150);
 }
 void GameScene::Draw() {
 
