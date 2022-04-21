@@ -85,6 +85,8 @@ void GameScene::Update() {
 	XMFLOAT3 eyeMove = {0, 0, 0};
 	//注視点の移動ベクトル
 	XMFLOAT3 targetMove = {0, 0, 0};
+	//キャラクターの移動ベクトル
+	XMFLOAT3 characterMove = {0, 0, 0};
 
 	//視点の移動の速さ
 	const float kEyeSpeed = 0.2f;
@@ -92,7 +94,12 @@ void GameScene::Update() {
 	const float kTargetSpeed = 0.2f;
 	//上方向の回転速さ(ラジアン/frame)
 	const float kUpRotSpeed = 0.05f;
-/*
+	//キャラクターの移動の速さ
+	const float kCharacterSpeed = 0.2f;
+
+	
+	
+	/*
 	//視点移動処理
 	//押した方向で移動ベクトルの変更
 	if (input_->PushKey(DIK_W)) {
@@ -147,7 +154,7 @@ void GameScene::Update() {
 	}
 	//行列の再計算
 	viewProjection_.UpdateMatrix();
-	
+
 	//デバックテキスト
 	debugText_->SetPos(50, 50);
 	debugText_->Printf(
