@@ -17,7 +17,7 @@ void GameScene::Initialize() {
 	debugText_ = DebugText::GetInstance();
 	textureHandle_ = TextureManager::Load("02-03/mario.jpg");
 	model_ = Model::Create();
-
+	
 	// 乱数シード生成器
 	std::random_device seed_gen;
 	// メルセンヌ・ツイスター
@@ -44,6 +44,8 @@ void GameScene::Initialize() {
 	}
 	//カメラ垂直方向視野角を設定
 	viewProjection_.fovAngleY = XMConvertToRadians(45.0f);
+	//アスペクト比を設定
+	viewProjection_.aspectRatio = 1.5f;
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 }
@@ -119,11 +121,11 @@ void GameScene::Update() {
 */
 	//FoV変更処理
 	//上キーで視野角が広がる
-	if (input_->PushKey(DIK_UP)) {
+	if (input_->PushKey(DIK_W)) {
 		viewProjection_.fovAngleY += 0.01f;
 		viewProjection_.fovAngleY = min(viewProjection_.fovAngleY, XM_PI);
 	} 
-	else if (input_->PushKey(DIK_DOWN)) {
+	else if (input_->PushKey(DIK_S)) {
 		viewProjection_.fovAngleY -= 0.01f;
 		viewProjection_.fovAngleY = max(viewProjection_.fovAngleY, 0.01f);
 	}
