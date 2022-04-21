@@ -43,7 +43,7 @@ void GameScene::Initialize() {
 		worldTransform_[i].Initialize();
 	}
 	//カメラ垂直方向視野角を設定
-	viewProjection_.fovAngleY = XMConvertToRadians(10.0f);
+	viewProjection_.fovAngleY = XMConvertToRadians(45.0f);
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 }
@@ -117,6 +117,16 @@ void GameScene::Update() {
 	//上方向ベクトルを計算
 	viewProjection_.up = {cosf(viewAngle), sinf(viewAngle), 0.0f};
 */
+	//FoV変更処理
+	//上キーで視野角が広がる
+	if (input_->PushKey(DIK_UP)) {
+		viewProjection_.fovAngleY += 0.01f;
+		viewProjection_.fovAngleY = min(viewProjection_.fovAngleY, XM_PI);
+	} 
+	else if (input_->PushKey(DIK_DOWN)) {
+		viewProjection_.fovAngleY -= 0.01f;
+		viewProjection_.fovAngleY = max(viewProjection_.fovAngleY, 0.01f);
+	}
 	//行列の再計算
 	viewProjection_.UpdateMatrix();
 	
@@ -133,6 +143,9 @@ void GameScene::Update() {
 	debugText_->SetPos(50, 90);
 	debugText_->Printf(
 	  "up:(%f,%f,%f)", viewProjection_.up.x, viewProjection_.up.y, viewProjection_.up.z);
+
+	debugText_->SetPos(50, 110);
+	debugText_->Printf("fovAngleY(Degree):%f", XMConvertToDegrees(viewProjection_.fovAngleY));
 }
 void GameScene::Draw() {
 
